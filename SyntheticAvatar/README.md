@@ -1,4 +1,4 @@
-#3D Rerendering component
+# 3D Rerendering component
 Input:
 Pose Estimation Data
 Output:
