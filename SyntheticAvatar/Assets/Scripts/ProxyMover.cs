@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ProxyMover : MonoBehaviour
 {
-    public Transform proxy;
+    public Transform root;
+    public Transform ellBowProxy;
+    public Transform handProxy;
 
     // Start is called before the first frame update
     void Start()
@@ -15,11 +17,21 @@ public class ProxyMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void move(Vector3 pos)
+    public void move(HumanBodyBones bone, Vector3 pos)
     {
-        proxy.localPosition = pos;
+        switch (bone)
+        {
+            case HumanBodyBones.LeftUpperArm:
+                ellBowProxy.localPosition = pos;
+                break;
+            case HumanBodyBones.LeftLowerArm:
+                handProxy.localPosition = pos;
+                break;
+            default:
+                break;
+        }
     }
 }

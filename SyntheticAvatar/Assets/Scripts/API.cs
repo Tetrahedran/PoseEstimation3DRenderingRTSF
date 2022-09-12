@@ -5,6 +5,7 @@ using System.Threading;
 using Proyecto26;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class API : MonoBehaviour
 {
@@ -12,8 +13,6 @@ public class API : MonoBehaviour
     public int port = 8080;
 
     public ProxyMover mover;
-
-    private Thread serveThread;
 
     // Start is called before the first frame update
     void Start()
@@ -29,17 +28,23 @@ public class API : MonoBehaviour
 
     private IEnumerator Serve()
     {
-        //src: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_server
         Debug.Log("Async Thread running");
         while (true)
         {
             RestClient.Get($"http://{ip}:{port}/test")
                 .Then(response => {
                     JObject obj = JObject.Parse(response.Text);
-                    int[] first = obj.Value<JArray>("1").ToObject<int[]>();
-                    Vector3 f_vec = new Vector3(first[0], first[1], first[2]);
-                    Debug.Log(f_vec);
-                    mover.move(f_vec);
+                    HumanBodyBones[] values = Enum.GetValues(typeof(HumanBodyBones)) as HumanBodyBones[];
+                    Array.Sort(values);
+                    foreach (HumanBodyBones bone in values)
+                    {
+                        if (obj.ContainsKey(bone.ToString()))
+                        {
+                            float[] pos = obj.Value<JArray>(bone.ToString()).ToObject<float[]>();
+                            Vector3 vec = new Vector3(pos[0], pos[1], pos[2]);
+                            mover.move(bone, vec);
+                        }
+                    }
                 });
             yield return new WaitForSecondsRealtime(0.1f);
         }
