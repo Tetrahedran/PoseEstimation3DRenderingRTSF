@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class ProxyMapperEditor : MonoBehaviour
+[CustomEditor(typeof(ProxyMapper))]
+public class ProxyMapperEditor : Editor
 {
-    // Start is called before the first frame update
-    void Start()
+    SerializedProperty bone;
+    SerializedProperty staticProxy;
+    SerializedProperty dynamicProxy;
+
+    private void OnEnable()
     {
-        
+        bone = serializedObject.FindProperty("bone");
+        staticProxy = serializedObject.FindProperty("staticProxy");
+        dynamicProxy = serializedObject.FindProperty("dynamicProxy");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnInspectorGUI()
     {
-        
+        EditorGUILayout.PropertyField(bone, new GUIContent("Related bone"));
+        EditorGUILayout.PropertyField(staticProxy);
+        EditorGUILayout.PropertyField(dynamicProxy);
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
