@@ -9,6 +9,8 @@ public class RootProxyFollower : MonoBehaviour
     private Transform rootProxy;
     [SerializeField]
     private HumanBodyBones rootBone;
+    [SerializeField]
+    private bool globalMode;
 
     private Transform rootBoneTransform;
     // Start is called before the first frame update
@@ -20,7 +22,16 @@ public class RootProxyFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 translation = rootProxy.localPosition - rootBoneTransform.position;
+        Vector3 translation;
+        if (globalMode)
+        {
+            translation = rootProxy.position - rootBoneTransform.position;
+        }
+        else
+        {
+            translation = rootProxy.localPosition - rootBoneTransform.position;
+        }
+        
         transform.Translate(translation);
     }
 }
