@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 412954188}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412954185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19119316, y: 0.35180658, z: 0.17984533}
+  m_LocalPosition: {x: 0, y: 1.952, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -353,9 +353,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e75a06d835dce45976e2e1b75407a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 1760160701}
-  ellBowProxy: {fileID: 561757480}
-  handProxy: {fileID: 18676357}
+  hips: {fileID: 0}
+  spine: {fileID: 0}
+  neck: {fileID: 0}
+  head: {fileID: 0}
+  rUpperArm: {fileID: 0}
+  rLowerArm: {fileID: 0}
+  rHand: {fileID: 0}
+  rFingers: {fileID: 0}
+  lUpperArm: {fileID: 0}
+  lLowerArm: {fileID: 0}
+  lHand: {fileID: 0}
+  lFingers: {fileID: 0}
+  rUpperLeg: {fileID: 0}
+  rLowerLeg: {fileID: 0}
+  rFoot: {fileID: 0}
+  rToes: {fileID: 0}
+  lUpperLeg: {fileID: 0}
+  lLowerLeg: {fileID: 0}
+  lFoot: {fileID: 0}
+  lToes: {fileID: 0}
 --- !u!1 &561757479
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,9 +763,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6972089413ce64c4c9d4a7984fa7917c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 1760160701}
-  lEllbowProxy: {fileID: 561757480}
-  lHandProxy: {fileID: 18676357}
+  hips: {fileID: 0}
+  spine: {fileID: 0}
+  neck: {fileID: 0}
+  head: {fileID: 0}
+  rUpperArm: {fileID: 0}
+  rLowerArm: {fileID: 0}
+  rHand: {fileID: 0}
+  rFingers: {fileID: 0}
+  lUpperArm: {fileID: 0}
+  lLowerArm: {fileID: 0}
+  lHand: {fileID: 0}
+  lFingers: {fileID: 0}
+  rUpperLeg: {fileID: 0}
+  rLowerLeg: {fileID: 0}
+  rFoot: {fileID: 0}
+  rToes: {fileID: 0}
+  lUpperLeg: {fileID: 0}
+  lLowerLeg: {fileID: 0}
+  lFoot: {fileID: 0}
+  lToes: {fileID: 0}
 --- !u!114 &1630329407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +796,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootProxy: {fileID: 1760160701}
-  rootBone: 13
+  rootBone: 0
+  globalMode: 0
 --- !u!1 &1760160700
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803803302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.286, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class ProxyMover : MonoBehaviour
 {
+    public enum ProxyBone
+    {
+        Hips = 0, Spine = 9, Neck = 10, Head = 11,
+        RightUpperArm = 13, RightLowerArm = 15, RightHand = 17, RightFingers = 19,
+        LeftUpperArm = 12, LeftLowerArm = 14, LeftHand = 16, LeftFingers = 18,
+        RightUpperLeg = 2, RightLowerLeg = 4, RightFoot = 6, RightToes = 8,
+        LeftUpperLeg = 1, LeftLowerLeg = 3, LeftFoot = 5, LeftToes = 7
+    }
+
     [Header("Required bone proxies")]
     [Header("Spinal chain")]
     [SerializeField]
@@ -51,34 +60,39 @@ public class ProxyMover : MonoBehaviour
     [SerializeField]
     private Transform lToes;
 
-    private Dictionary<HumanBodyBones, Transform> dynamicProxies = new Dictionary<HumanBodyBones, Transform>();
+    private Dictionary<ProxyBone, Transform> dynamicProxies = new Dictionary<ProxyBone, Transform>();
     // Start is called before the first frame update
     void Start()
     {
         //Spinal chain
-        dynamicProxies.Add(HumanBodyBones.Hips, spine);
-        dynamicProxies.Add(HumanBodyBones.Spine, neck);
-        dynamicProxies.Add(HumanBodyBones.Head, head);
+        dynamicProxies.Add(ProxyBone.Hips, hips);
+        dynamicProxies.Add(ProxyBone.Spine, spine);
+        dynamicProxies.Add(ProxyBone.Neck, neck);
+        dynamicProxies.Add(ProxyBone.Head, head);
 
         //Right Arm Chain
-        dynamicProxies.Add(HumanBodyBones.RightUpperArm, rLowerArm);
-        dynamicProxies.Add(HumanBodyBones.RightLowerArm, rHand);
-        dynamicProxies.Add(HumanBodyBones.RightHand, rFingers);
+        dynamicProxies.Add(ProxyBone.RightUpperArm, rUpperArm);
+        dynamicProxies.Add(ProxyBone.RightLowerArm, rLowerArm);
+        dynamicProxies.Add(ProxyBone.RightHand, rHand);
+        dynamicProxies.Add(ProxyBone.RightFingers, rFingers);
 
         //Left Arm Chain
-        dynamicProxies.Add(HumanBodyBones.LeftUpperArm, lLowerArm);
-        dynamicProxies.Add(HumanBodyBones.LeftLowerArm, lHand);
-        dynamicProxies.Add(HumanBodyBones.LeftHand, lFingers);
+        dynamicProxies.Add(ProxyBone.LeftUpperArm, lUpperArm);
+        dynamicProxies.Add(ProxyBone.LeftLowerArm, lLowerArm);
+        dynamicProxies.Add(ProxyBone.LeftHand, lHand);
+        dynamicProxies.Add(ProxyBone.LeftFingers, lFingers);
 
         //Right Leg Chain
-        dynamicProxies.Add(HumanBodyBones.RightUpperLeg, rUpperLeg);
-        dynamicProxies.Add(HumanBodyBones.RightLowerLeg, rFoot);
-        dynamicProxies.Add(HumanBodyBones.RightFoot, rToes);
+        dynamicProxies.Add(ProxyBone.RightUpperLeg, rUpperLeg);
+        dynamicProxies.Add(ProxyBone.RightLowerLeg, rLowerLeg);
+        dynamicProxies.Add(ProxyBone.RightFoot, rFoot);
+        dynamicProxies.Add(ProxyBone.RightToes, rToes);
 
         //Left Leg Chain
-        dynamicProxies.Add(HumanBodyBones.LeftUpperLeg, lLowerLeg);
-        dynamicProxies.Add(HumanBodyBones.LeftLowerLeg, lFoot);
-        dynamicProxies.Add(HumanBodyBones.LeftFoot, lToes);
+        dynamicProxies.Add(ProxyBone.LeftUpperLeg, lUpperLeg);
+        dynamicProxies.Add(ProxyBone.LeftLowerLeg, lLowerLeg);
+        dynamicProxies.Add(ProxyBone.LeftFoot, lFoot);
+        dynamicProxies.Add(ProxyBone.LeftToes, lToes);
     }
 
     // Update is called once per frame
@@ -87,7 +101,7 @@ public class ProxyMover : MonoBehaviour
 
     }
 
-    public void move(HumanBodyBones bone, Vector3 pos)
+    public void move(ProxyBone bone, Vector3 pos)
     {
         if (dynamicProxies.ContainsKey(bone))
         {

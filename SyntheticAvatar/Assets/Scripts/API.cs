@@ -34,9 +34,9 @@ public class API : MonoBehaviour
             RestClient.Get($"http://{ip}:{port}/test")
                 .Then(response => {
                     JObject obj = JObject.Parse(response.Text);
-                    HumanBodyBones[] values = Enum.GetValues(typeof(HumanBodyBones)) as HumanBodyBones[];
+                    ProxyMover.ProxyBone[] values = Enum.GetValues(typeof(ProxyMover.ProxyBone)) as ProxyMover.ProxyBone[];
                     Array.Sort(values);
-                    foreach (HumanBodyBones bone in values)
+                    foreach (ProxyMover.ProxyBone bone in values)
                     {
                         if (obj.ContainsKey(bone.ToString()))
                         {
