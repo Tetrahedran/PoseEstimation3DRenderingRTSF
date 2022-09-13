@@ -59,29 +59,29 @@ public class FullProxyMapper : MonoBehaviour
     {
         Animator anim = GetComponent<Animator>();
         //Spinal Chain
-        mappings.Add(create(anim, HumanBodyBones.Hips, hips, spine, ProxyMapper.BoneForward.UP));
-        mappings.Add(create(anim, HumanBodyBones.Spine, spine, neck, ProxyMapper.BoneForward.UP));
-        mappings.Add(create(anim, HumanBodyBones.Head, neck, head, ProxyMapper.BoneForward.UP));
+        mappings.Add(create(anim, HumanBodyBones.Hips, hips, spine));
+        mappings.Add(create(anim, HumanBodyBones.Spine, spine, neck));
+        mappings.Add(create(anim, HumanBodyBones.Head, neck, head));
 
         //Right Arm Chain
-        mappings.Add(create(anim, HumanBodyBones.RightUpperArm, rUpperArm, rLowerArm, ProxyMapper.BoneForward.RIGHT));
-        mappings.Add(create(anim, HumanBodyBones.RightLowerArm, rLowerArm, rHand, ProxyMapper.BoneForward.RIGHT));
-        mappings.Add(create(anim, HumanBodyBones.RightHand, rHand, rFingers, ProxyMapper.BoneForward.RIGHT));
+        mappings.Add(create(anim, HumanBodyBones.RightUpperArm, rUpperArm, rLowerArm));
+        mappings.Add(create(anim, HumanBodyBones.RightLowerArm, rLowerArm, rHand));
+        mappings.Add(create(anim, HumanBodyBones.RightHand, rHand, rFingers));
 
         //Left Arm Chain
-        mappings.Add(create(anim, HumanBodyBones.LeftUpperArm, lUpperArm, lLowerArm, ProxyMapper.BoneForward.LEFT));
-        mappings.Add(create(anim, HumanBodyBones.LeftLowerArm, lLowerArm, lHand, ProxyMapper.BoneForward.LEFT));
-        mappings.Add(create(anim, HumanBodyBones.LeftHand, lHand, lFingers, ProxyMapper.BoneForward.LEFT));
+        mappings.Add(create(anim, HumanBodyBones.LeftUpperArm, lUpperArm, lLowerArm));
+        mappings.Add(create(anim, HumanBodyBones.LeftLowerArm, lLowerArm, lHand));
+        mappings.Add(create(anim, HumanBodyBones.LeftHand, lHand, lFingers));
 
         //Right Leg Chain
-        mappings.Add(create(anim, HumanBodyBones.RightUpperLeg, rUpperLeg, rLowerLeg, ProxyMapper.BoneForward.DOWN));
-        mappings.Add(create(anim, HumanBodyBones.RightLowerLeg, rLowerLeg, rFoot, ProxyMapper.BoneForward.DOWN));
-        mappings.Add(create(anim, HumanBodyBones.RightFoot, rFoot, rToes, ProxyMapper.BoneForward.DOWN));
+        mappings.Add(create(anim, HumanBodyBones.RightUpperLeg, rUpperLeg, rLowerLeg));
+        mappings.Add(create(anim, HumanBodyBones.RightLowerLeg, rLowerLeg, rFoot));
+        mappings.Add(create(anim, HumanBodyBones.RightFoot, rFoot, rToes, ProxyMapper.BoneForward.UP));
 
         //Left Leg Chain
-        mappings.Add(create(anim, HumanBodyBones.LeftUpperLeg, lUpperLeg, lLowerLeg, ProxyMapper.BoneForward.DOWN));
-        mappings.Add(create(anim, HumanBodyBones.LeftLowerLeg, lLowerLeg, lFoot, ProxyMapper.BoneForward.DOWN));
-        mappings.Add(create(anim, HumanBodyBones.LeftFoot, lFoot, lToes, ProxyMapper.BoneForward.DOWN));
+        mappings.Add(create(anim, HumanBodyBones.LeftUpperLeg, lUpperLeg, lLowerLeg));
+        mappings.Add(create(anim, HumanBodyBones.LeftLowerLeg, lLowerLeg, lFoot));
+        mappings.Add(create(anim, HumanBodyBones.LeftFoot, lFoot, lToes, ProxyMapper.BoneForward.UP));
     }
 
     // Update is called once per frame
@@ -96,5 +96,10 @@ public class FullProxyMapper : MonoBehaviour
     private ProxyMapper create(Animator anim, HumanBodyBones bone, Transform root, Transform dynamic, ProxyMapper.BoneForward forward)
     {
         return new ProxyMapper(anim.GetBoneTransform(bone), root, dynamic, forward);
+    }
+
+    private ProxyMapper create(Animator anim, HumanBodyBones bone, Transform root, Transform dynamic)
+    {
+        return create(anim, bone, root, dynamic, ProxyMapper.BoneForward.LEFT);
     }
 }
