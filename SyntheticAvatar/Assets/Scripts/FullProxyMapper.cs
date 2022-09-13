@@ -60,7 +60,9 @@ public class FullProxyMapper : MonoBehaviour
         Animator anim = GetComponent<Animator>();
         //Spinal Chain
         mappings.Add(create(anim, HumanBodyBones.Hips, hips, spine));
+        //mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Hips), hips, rUpperLeg, lUpperLeg, ProxyMapper.BoneForward.LEFT));
         mappings.Add(create(anim, HumanBodyBones.Spine, spine, neck));
+        mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Spine), spine, rUpperArm, lUpperArm, ProxyMapper.BoneForward.LEFT));
         mappings.Add(create(anim, HumanBodyBones.Head, neck, head));
 
         //Right Arm Chain
@@ -95,7 +97,7 @@ public class FullProxyMapper : MonoBehaviour
 
     private ProxyMapper create(Animator anim, HumanBodyBones bone, Transform root, Transform dynamic, ProxyMapper.BoneForward forward)
     {
-        return new ProxyMapper(anim.GetBoneTransform(bone), root, dynamic, forward);
+        return new LinearProxyMapper(anim.GetBoneTransform(bone), root, dynamic, forward);
     }
 
     private ProxyMapper create(Animator anim, HumanBodyBones bone, Transform root, Transform dynamic)

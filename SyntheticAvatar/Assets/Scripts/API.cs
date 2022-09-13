@@ -46,7 +46,7 @@ public class API : MonoBehaviour
                         }
                     }
                 });
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForEndOfFrame();
         }
     }
 }
