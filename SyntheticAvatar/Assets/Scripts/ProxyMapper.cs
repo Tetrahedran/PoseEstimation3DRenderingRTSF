@@ -11,18 +11,18 @@ public abstract class ProxyMapper
 
     protected Transform staticProxy;
     protected Transform joint;
-    protected BoneForward forward;
+    protected BoneForward follow;
 
     public ProxyMapper(Transform bone, Transform staticProxy, BoneForward forwardDir)
     {
         this.joint = bone;
         this.staticProxy = staticProxy;
-        this.forward = forwardDir;
+        this.follow = forwardDir;
     }
 
     public abstract void Update();
 
-    protected Vector3 getBoneDir()
+    protected Vector3 getBoneDir(BoneForward forward)
     {
         switch (forward)
         {
@@ -41,5 +41,10 @@ public abstract class ProxyMapper
             default:
                 throw new System.Exception();
         }
+    }
+
+    protected Vector3 getBoneDir()
+    {
+        return getBoneDir(this.follow);
     }
 }
