@@ -60,9 +60,9 @@ public class FullProxyMapper : MonoBehaviour
         Animator anim = GetComponent<Animator>();
         //Spinal Chain
         mappings.Add(create(anim, HumanBodyBones.Hips, hips, spine));
-        mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Hips), hips, rUpperLeg, lUpperLeg, ProxyMapper.BoneForward.LEFT, ProxyMapper.BoneForward.DOWN));
+        //mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Hips), hips, rUpperLeg, lUpperLeg, ProxyMapper.BoneForward.LEFT, ProxyMapper.BoneForward.DOWN));
         mappings.Add(create(anim, HumanBodyBones.Spine, spine, neck));
-        mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Spine), spine, rUpperArm, lUpperArm, ProxyMapper.BoneForward.LEFT, ProxyMapper.BoneForward.UP));
+        //mappings.Add(new TriangleProxyMapper(anim.GetBoneTransform(HumanBodyBones.Spine), spine, rUpperArm, lUpperArm, ProxyMapper.BoneForward.LEFT, ProxyMapper.BoneForward.UP));
         mappings.Add(create(anim, HumanBodyBones.Head, neck, head));
 
         //Right Arm Chain

@@ -7,16 +7,18 @@ using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using System;
 
+[RequireComponent(typeof(FullProxyMover))]
 public class API : MonoBehaviour
 {
     public string ip = "192.168.5.1";
     public int port = 8080;
 
-    public ProxyMover mover;
+    private FullProxyMover mover;
 
     // Start is called before the first frame update
     void Start()
     {
+        mover = GetComponent<FullProxyMover>();
         StartCoroutine(Serve());
     }
 
@@ -34,9 +36,9 @@ public class API : MonoBehaviour
             RestClient.Get($"http://{ip}:{port}/test")
                 .Then(response => {
                     JObject obj = JObject.Parse(response.Text);
-                    ProxyMover.ProxyBone[] values = Enum.GetValues(typeof(ProxyMover.ProxyBone)) as ProxyMover.ProxyBone[];
+                    FullProxyMover.ProxyBone[] values = Enum.GetValues(typeof(FullProxyMover.ProxyBone)) as FullProxyMover.ProxyBone[];
                     Array.Sort(values);
-                    foreach (ProxyMover.ProxyBone bone in values)
+                    foreach (FullProxyMover.ProxyBone bone in values)
                     {
                         if (obj.ContainsKey(bone.ToString()))
                         {
