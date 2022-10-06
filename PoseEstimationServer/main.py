@@ -10,6 +10,9 @@ from time import time
 
 
 def perform_pose_estimation():
+    """
+    Loop for performing continuous pose estimation
+    """
     wc = WebCamPoseInference("vipnas_res50", .75)
     wc.start()
     fps = []
@@ -27,6 +30,11 @@ def perform_pose_estimation():
 
 
 def create_pose_detection_thread():
+    """
+    Creates a separate thread to execute continuous pose estimation
+
+    :return: a thread that continuously executes pose estimation on webcam images
+    """
     x = Thread(target=perform_pose_estimation, daemon=True)
     return x
 
@@ -58,7 +66,11 @@ pose = {
     }
 
 
-def get_pose():
+def get_pose() -> dict:
+    """
+    Get current pose dict
+    :return: the current poses
+    """
     pose_lock.acquire()
     try:
         return pose
@@ -66,7 +78,11 @@ def get_pose():
         pose_lock.release()
 
 
-def set_pose(new_pose):
+def set_pose(new_pose: dict):
+    """
+    Override entries in pose with new_pose
+    :param new_pose: dict that maps bone names to new positions
+    """
     pose_lock.acquire()
     try:
         for key in new_pose:
