@@ -13,6 +13,10 @@ public class API : MonoBehaviour
     public string ip = "192.168.5.1";
     public int port = 8080;
 
+    public bool fixedSpeed;
+    [Range(5, 120)]
+    public int fixedFPSSpeed;
+
     private FullProxyMover mover;
 
     // Start is called before the first frame update
@@ -48,7 +52,14 @@ public class API : MonoBehaviour
                         }
                     }
                 });
-            yield return new WaitForEndOfFrame();
+            if (!fixedSpeed)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(1.0f / fixedFPSSpeed);
+            }
         }
     }
 }
