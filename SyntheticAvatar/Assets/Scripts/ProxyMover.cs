@@ -5,29 +5,21 @@ using UnityEngine;
 public class ProxyMover
 {
     private Transform transform;
-    private Vector3 prevSmoothedPosition;
-    private int a = 1;
-    private int b = 1;
+    private ProxyPositionSmoother smoother;
 
-    public ProxyMover(Transform transform)
+    public ProxyMover(Transform transform, ProxyPositionSmoother smoother)
     {
         this.transform = transform;
-        prevSmoothedPosition = Vector3.positiveInfinity;
+        this.smoother = smoother;
+    }
+
+    public ProxyMover(Transform transform) : this(transform, new NoneSmoother())
+    {
     }
 
     public void move(Vector3 newLocalPos)
     {
-        // Setting init value for smoothing
-        if(prevSmoothedPosition.Equals(Vector3.positiveInfinity))
-        {
-            prevSmoothedPosition = newLocalPos;
-        }
-        // Apply simple smoothing
-        else
-        {
-            Vector3 smoothedPos = (a * prevSmoothedPosition + b * newLocalPos) / (a + b);
-            prevSmoothedPosition = smoothedPos;
-            transform.localPosition = smoothedPos;
-        }
+        Vector3 smoothedPosition = this.smoother.getSmoothedPosition(newLocalPos);
+        transform.localPosition = smoothedPosition;
     }
 }
