@@ -4,6 +4,7 @@ from mmpose.apis.webcam.nodes import model_nodes
 from mmcv import Config, DictAction
 import cv2
 import numpy as np
+from typing import Dict, Tuple
 
 
 class WebCamPoseInference:
@@ -13,7 +14,7 @@ class WebCamPoseInference:
 
     model = None
 
-    def __init__(self, model_name, confidence=0.75, video_id=0):
+    def __init__(self, model_name: str, confidence=0.75, video_id=0):
         """
         Initializer
 
@@ -150,6 +151,27 @@ class WebCamPoseInference:
                 ret[key] = self.transform_result(points[bone_index], img_shape, div)
         return ret
 
+    def get_spinal_chain(self, points, is_between: Dict[str, tuple], img_shape: tuple, div) -> dict:
+        ret = {}
+        for key in is_between:
+            calc_from = is_between[key]
+            if len(calc_from) == 2:
+                first = calc_from[0]
+                second = calc_from[1]
+                if first is int and second is int:
+                    first = points[first]
+                    second = points[second]
+                    if (first[2] >= self.confidence) and (second[2] >= self.confidence):
+                        point_between = self.calculate_point_between(first, second)
+                        ret[key] = self.transform_result(point_between, img_shape, div)
+                elif first is str and second is str:
+                    if (first in ret) and (second in ret):
+                        ret[key] = self.calculate_point_between(ret[first], ret[second])
+            else:
+                raise Exception("Currently not supported")
+
+        return ret
+
     def reformat_results(self, pose_results, img_shape) -> dict:
         """
         Reformats results from pose estimation. Sorts out points with to low confidence,
@@ -184,7 +206,10 @@ class WebCamPoseInference:
                                       img_shape, div))
 
         # Spinal chain
-        hip = self.calculate_point_between()
+        ret.update(self.get_spinal_chain(points,
+                                         {"Hip": (11, 12), "Neck": (5, 6), "Spine": ("Hip", "Neck"),
+                                          "Head": (1, 2)},
+                                         img_shape, div))
 
         return ret
 
