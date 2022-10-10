@@ -112,7 +112,7 @@ class WebCamPoseInference:
                 and the y-value has been inverted and offset by the half image height
         """
         x_offset = img_shape[1] / 2
-        y_offset = img_shape[0] / 2
+        y_offset = img_shape[0] * 1.2
         #TODO add z-value
         new = np.array((x_offset - raw[0], -raw[1] + y_offset, 0)) / div
         return new.tolist()
@@ -158,15 +158,15 @@ class WebCamPoseInference:
             if len(calc_from) == 2:
                 first = calc_from[0]
                 second = calc_from[1]
-                if first is int and second is int:
+                if isinstance(first, int) and isinstance(second, int):
                     first = points[first]
                     second = points[second]
                     if (first[2] >= self.confidence) and (second[2] >= self.confidence):
                         point_between = self.calculate_point_between(first, second)
                         ret[key] = self.transform_result(point_between, img_shape, div)
-                elif first is str and second is str:
+                elif isinstance(first, str) and isinstance(second, str):
                     if (first in ret) and (second in ret):
-                        ret[key] = self.calculate_point_between(ret[first], ret[second])
+                        ret[key] = list(self.calculate_point_between(ret[first], ret[second]))
             else:
                 raise Exception("Currently not supported")
 
@@ -210,6 +210,8 @@ class WebCamPoseInference:
                                          {"Hip": (11, 12), "Neck": (5, 6), "Spine": ("Hip", "Neck"),
                                           "Head": (1, 2)},
                                          img_shape, div))
+
+        print(ret)
 
         return ret
 
