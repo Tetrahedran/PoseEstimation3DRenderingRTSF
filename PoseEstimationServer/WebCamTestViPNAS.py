@@ -174,6 +174,18 @@ class WebCamPoseInference:
                                       {"RightUpperArm": 6, "RightLowerArm": 8, "RightHand": 10, "RightFingers": 10},
                                       img_shape, div))
         # Left Leg Chain
+        ret.update(self.set_extremity(points,
+                                      {"LeftUpperLeg": 11, "LeftLowerLeg": 13, "LeftFoot": 15, "LeftToes": 15},
+                                      img_shape, div))
+
+        # Right Leg Chain
+        ret.update(self.set_extremity(points,
+                                      {"RightUpperLeg": 12, "RightLowerLeg": 14, "RightFoot": 16, "RightToes": 16},
+                                      img_shape, div))
+
+        # Spinal chain
+        hip = self.calculate_point_between()
+
         return ret
 
 
