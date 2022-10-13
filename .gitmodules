@@ -1,6 +1,0 @@
-[submodule "PoseEstimationServer/poopose"]
-	path = PoseEstimationServer/poopose
-	url = https://github.com/lunarring/poopose.git
-[submodule "PoseEstimationServer/garden4"]
-	path = PoseEstimationServer/garden4
-	url = https://github.com/lunarring/garden4.git
