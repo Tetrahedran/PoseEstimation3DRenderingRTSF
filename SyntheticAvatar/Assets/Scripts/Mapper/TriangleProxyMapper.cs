@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TriangleProxyMapper : AbstractVectorFollowProxy
 {
+    [Serializable]
+    public struct TriangleProxyMapperAttributes
+    {
+        public BoneForward boneDirection;
+        public BoneForward mappingPlaneNormal;
+        public Transform staticProxy;
+        public Transform proxy1, proxy2;
+    }
+
     private Transform staticProxy;
     private Transform proxy1, proxy2;
 
-    public TriangleProxyMapper(Transform bone, Transform staticProxy, Transform proxy1, Transform proxy2, BoneForward boneDir, BoneForward mappingPlaneNormal) : 
-        base(bone, boneDir, mappingPlaneNormal)
+    public TriangleProxyMapper(Transform bone, TriangleProxyMapperAttributes attr) : 
+        base(bone, attr.boneDirection, attr.mappingPlaneNormal)
     {
-        this.staticProxy = staticProxy;
-        this.proxy1 = proxy1;
-        this.proxy2 = proxy2;
+        this.staticProxy = attr.staticProxy;
+        this.proxy1 = attr.proxy1;
+        this.proxy2 = attr.proxy2;
     }
 
     protected override Vector3 getFollowVector()

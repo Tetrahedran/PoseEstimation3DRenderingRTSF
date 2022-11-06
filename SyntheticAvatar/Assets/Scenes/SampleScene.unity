@@ -694,29 +694,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6972089413ce64c4c9d4a7984fa7917c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainBoneDirection: 5
-  secondaryBoneDirection: 0
-  hips: {fileID: 1760160701}
-  spine: {fileID: 561757480}
-  neck: {fileID: 18676357}
-  head: {fileID: 7627779206296959882}
-  nose: {fileID: 2041180585}
-  rUpperArm: {fileID: 7627779206296959881}
-  rLowerArm: {fileID: 7627779206296959880}
-  rHand: {fileID: 7627779206296959879}
-  rFingers: {fileID: 7627779206296959878}
-  lUpperArm: {fileID: 7627779206296959877}
-  lLowerArm: {fileID: 7627779206296959876}
-  lHand: {fileID: 7627779206296959875}
-  lFingers: {fileID: 7627779206296959874}
-  rUpperLeg: {fileID: 7627779206296959873}
-  rLowerLeg: {fileID: 7627779206296959872}
-  rFoot: {fileID: 7627779206296959871}
-  rToes: {fileID: 7627779206296959870}
-  lUpperLeg: {fileID: 7627779206296959869}
-  lLowerLeg: {fileID: 7627779206296959868}
-  lFoot: {fileID: 7627779206296959867}
-  lToes: {fileID: 7627779206296959866}
+  hips:
+    boneDirection: 5
+    staticProxy: {fileID: 1760160701}
+    dynamicProxy: {fileID: 561757480}
+    resetRotation: 0
+  spine:
+    boneDirection: 5
+    staticProxy: {fileID: 561757480}
+    dynamicProxy: {fileID: 18676357}
+    resetRotation: 0
+  head:
+    boneDirection: 5
+    staticProxy: {fileID: 18676357}
+    dynamicProxy: {fileID: 7627779206296959882}
+    resetRotation: 0
+  hipRotation:
+    boneDirection: 1
+    mappingPlaneNormal: 5
+    staticProxy: {fileID: 561757480}
+    proxy1: {fileID: 7627779206296959873}
+    proxy2: {fileID: 7627779206296959869}
+  shoulderRotation:
+    boneDirection: 1
+    mappingPlaneNormal: 5
+    staticProxy: {fileID: 561757480}
+    proxy1: {fileID: 7627779206296959881}
+    proxy2: {fileID: 7627779206296959877}
+  headRotation:
+    boneDirection: 0
+    mappingPlaneNormal: 5
+    staticProxy: {fileID: 18676357}
+    dynamicProxy: {fileID: 2041180585}
+  rUpperArm:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959881}
+    dynamicProxy: {fileID: 7627779206296959880}
+    resetRotation: 1
+  rLowerArm:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959880}
+    dynamicProxy: {fileID: 7627779206296959879}
+    resetRotation: 1
+  rHand:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959879}
+    dynamicProxy: {fileID: 7627779206296959874}
+    resetRotation: 1
+  lUpperArm:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959877}
+    dynamicProxy: {fileID: 7627779206296959876}
+    resetRotation: 1
+  lLowerArm:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959876}
+    dynamicProxy: {fileID: 7627779206296959875}
+    resetRotation: 1
+  lHand:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959875}
+    dynamicProxy: {fileID: 7627779206296959874}
+    resetRotation: 1
+  rUpperLeg:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959873}
+    dynamicProxy: {fileID: 7627779206296959872}
+    resetRotation: 1
+  rLowerLeg:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959872}
+    dynamicProxy: {fileID: 7627779206296959871}
+    resetRotation: 1
+  rFoot:
+    boneDirection: 0
+    staticProxy: {fileID: 7627779206296959871}
+    dynamicProxy: {fileID: 7627779206296959870}
+    resetRotation: 1
+  lUpperLeg:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959869}
+    dynamicProxy: {fileID: 7627779206296959868}
+    resetRotation: 1
+  lLowerLeg:
+    boneDirection: 5
+    staticProxy: {fileID: 7627779206296959868}
+    dynamicProxy: {fileID: 7627779206296959867}
+    resetRotation: 1
+  lFoot:
+    boneDirection: 0
+    staticProxy: {fileID: 7627779206296959867}
+    dynamicProxy: {fileID: 7627779206296959866}
+    resetRotation: 1
 --- !u!114 &1630329407
 MonoBehaviour:
   m_ObjectHideFlags: 0
