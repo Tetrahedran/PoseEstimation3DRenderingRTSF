@@ -1,10 +1,11 @@
-from mmpose.apis import (init_pose_model, inference_bottom_up_pose_model, inference_top_down_pose_model, vis_pose_result, vis_pose_tracking_result)
-from mmpose.apis.webcam import WebcamExecutor
-from mmpose.apis.webcam.nodes import model_nodes
-from mmcv import Config, DictAction
+from mmpose.apis import inference_top_down_pose_model
+
 import cv2
 import numpy as np
-from typing import Dict, Tuple
+from typing import Dict
+from PoseEstimationModel import PoseEstimationModelName, PoseEstimationModel
+
+import KalmanFilter
 
 
 class WebCamPoseInference:
@@ -14,7 +15,7 @@ class WebCamPoseInference:
 
     model = None
 
-    def __init__(self, model_name: str, confidence=0.75, video_id=0):
+    def __init__(self, model_name: PoseEstimationModelName, confidence=0.75, video_id=0):
         """
         Initializer
 
@@ -26,6 +27,9 @@ class WebCamPoseInference:
         self.model_name = model_name
         self.vid = cv2.VideoCapture(video_id)
         self.confidence = confidence
+        self.filters = []
+        for i in range(17):
+            self.filters.append(KalmanFilter.KalmanFilter())
 
     def start(self):
         """
@@ -34,34 +38,7 @@ class WebCamPoseInference:
 
         :raises Exception: if self.model_name is not matching any of the predefined model names
         """
-        config_file, checkpoint_file = "", ""
-        if self.model_name == "vipnas_mbv3":
-            # ca. 13fps
-            config_file = "checkpoints/topdown_heatmap_vipnas_mbv3_coco_256x192.py"
-            checkpoint_file = "checkpoints/vipnas_mbv3_coco_256x192-7018731a_20211122.pth"
-        elif self.model_name == "vipnas_res50":
-            # ca. 21fps
-            config_file = "checkpoints/topdown_heatmap_vipnas_res50_coco_256x192.py"
-            checkpoint_file = "checkpoints/vipnas_res50_coco_256x192-cc43b466_20210624.pth"
-        elif self.model_name == "shufflev1":
-            # ca. 24fps
-            config_file = "checkpoints/topdown_heatmap_shufflenetv1_coco_384x288.py"
-            checkpoint_file = "checkpoints/shufflenetv1_coco_384x288-b2930b24_20200804.pth"
-        elif self.model_name == "mspn":
-            # ca. 20fps
-            config_file = "checkpoints/topdown_heatmap_mspn50_coco_256x192.py"
-            checkpoint_file = "checkpoints/mspn50_coco_256x192-8fbfb5d0_20201123.pth"
-        elif self.model_name == "mobilenetv2":
-            # ca. 29fps
-            config_file = "checkpoints/topdown_heatmap_mobilenetv2_coco_256x192.py"
-            checkpoint_file = "checkpoints/mobilenetv2_coco_256x192-d1e58e7b_20200727.pth"
-        elif self.model_name == "litehr":
-            # ca. 6fps
-            config_file = "checkpoints/topdown_heatmap_litehrnet_30_coco_256x192.py"
-            checkpoint_file = "checkpoints/litehrnet30_coco_256x192-4176555b_20210626.pth"
-        else:
-            raise Exception(f"model {self.model_name} not supported")
-        self.model = init_pose_model(config_file, checkpoint_file)
+        self.model = PoseEstimationModel.get("checkpoints", self.model_name)
 
     def infer(self) -> dict:
         """
@@ -87,11 +64,15 @@ class WebCamPoseInference:
         :param img: image used for pose estimation
         :param results: results from pose estimation
         """
-        for person in results:
-            for point in person["keypoints"]:
-                confidence = point[2]
-                if confidence > self.confidence:
-                    cv2.drawMarker(img, (int(point[0]), int(point[1])), (0, 255, 0), markerType=cv2.MARKER_CROSS)
+        for i in range(len(results[0]["keypoints"])):
+            point = results[0]["keypoints"][i]
+            confidence = point[2]
+            if confidence > self.confidence:
+                cv2.drawMarker(img, (int(point[0]), int(point[1])), (0, 255, 0), markerType=cv2.MARKER_CROSS)
+                filtered_point, p = self.filters[i].filter((point[0], point[1], 0))
+                filtered_point = filtered_point.flatten().tolist()
+                print(filtered_point)
+                cv2.drawMarker(img, (int(filtered_point[0]), int(filtered_point[1])), (255,0,0), markerType=cv2.MARKER_TILTED_CROSS)
         cv2.imshow("frame", img)
         if cv2.waitKey(1) & 0xff == ord("q"):
             return

@@ -1,0 +1,4 @@
+Kalman Filter reference implementation
+Higher R and lower Q make filtering realy laggy
+
+Maybe discard Kalman filter as results from pose estimation are good enough

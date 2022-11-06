@@ -7,20 +7,35 @@ from flask import Flask, json
 from threading import Thread, Lock
 from WebCamTestViPNAS import WebCamPoseInference
 from time import time
+from PoseEstimationModel import PoseEstimationModelName
+from PE_3D_Test import WebCam3DPoseEstimation
+from DetectionModel import DetectionModelName
+from PoseLifterModel import PoseLifterModelName
+import cv2
 
 
 def perform_pose_estimation():
     """
     Loop for performing continuous pose estimation
     """
-    wc = WebCamPoseInference("vipnas_res50", .75)
-    wc.start()
+    base = "checkpoints"
+
+    tdEstimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
+                                         PoseEstimationModelName.vipnas_res50,
+                                         PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
+
+    vid = cv2.VideoCapture(0)
     fps = []
     while True:
         start = time()
-        estimate = wc.infer()
+        ret, frame = vid.read()
+        estimate = tdEstimator.infer(frame, bypass_det=True)
         end = time()
-        set_pose(estimate)
+        cv2.imshow("frame", frame)
+        if cv2.waitKey(1) & 0xff == ord("q"):
+            return
+        if len(estimate) > 0:
+            set_pose(estimate[0])
         loc_fps = 1 / (end - start)
         fps.append(loc_fps)
         if len(fps) >= 10:
@@ -47,6 +62,7 @@ pose = {
         "Spine": [0, 0.25, 0],
         "Neck": [0, 0.5, 0],
         "Head": [0, .75, 0],
+        "Nose": [0, .75, .25],
         "LeftUpperArm": [0, .5, 0],
         "LeftLowerArm": [-0.25, .5, 0],
         "LeftHand": [-0.5, .5, 0],
@@ -91,7 +107,7 @@ def set_pose(new_pose: dict):
         pose_lock.release()
 
 
-@api.get("/test")
+@api.get("/estimation")
 def get_hello_world():
     return json.dumps(get_pose())
 
