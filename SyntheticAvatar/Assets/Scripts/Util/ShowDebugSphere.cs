@@ -13,9 +13,11 @@ public class ShowDebugSphere : MonoBehaviour
         foreach(Transform child in transform)
         {
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.localScale = Vector3.one * .1f;
-            sphere.transform.parent = child;
-            sphere.transform.localPosition = Vector3.zero;
+            child.transform.localScale = Vector3.one * 0.1f;
+            MeshFilter filter = child.gameObject.AddComponent<MeshFilter>();
+            filter.mesh = sphere.GetComponent<MeshFilter>().mesh;
+            child.gameObject.AddComponent<MeshRenderer>();
+            Destroy(sphere);
         }
     }
 
