@@ -5,19 +5,17 @@ using UnityEngine;
 public class ShowDebugSphere : MonoBehaviour
 {
     [SerializeField]
-    private bool showDebugSphere;
+    private bool hideDebugSpheres;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(Transform child in transform)
+        if (hideDebugSpheres)
         {
-            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            child.transform.localScale = Vector3.one * 0.1f;
-            MeshFilter filter = child.gameObject.AddComponent<MeshFilter>();
-            filter.mesh = sphere.GetComponent<MeshFilter>().mesh;
-            child.gameObject.AddComponent<MeshRenderer>();
-            Destroy(sphere);
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
     }
 

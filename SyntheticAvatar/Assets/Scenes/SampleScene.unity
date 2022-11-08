@@ -262,7 +262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412954185}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d7d2586a5116e458cfe057d720a9d6, type: 3}
   m_Name: 
@@ -302,7 +302,7 @@ MonoBehaviour:
   spine: {fileID: 561757480}
   neck: {fileID: 18676357}
   head: {fileID: 7627779206296959882}
-  nose: {fileID: 0}
+  nose: {fileID: 1615416213}
   rUpperArm: {fileID: 7627779206296959881}
   rLowerArm: {fileID: 7627779206296959880}
   rHand: {fileID: 7627779206296959879}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412954185}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b74fd64e7cca72241b84cbe52c15af9b, type: 3}
   m_Name: 
@@ -485,13 +485,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1223947089, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8369001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.y
@@ -499,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.45539147
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalRotation.w
@@ -533,17 +549,49 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE
       objectReference: {fileID: 0}
+    - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388840107371486329, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688722674990396637, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3716317115370018060, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4108629495336714649, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116401870129570769, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4540229000190281644, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093791603881671045, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7110436774692112344, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410130793860079635, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945953894594096990, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
@@ -624,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.52, z: 1.56}
+  m_LocalPosition: {x: 0, y: 0.593, z: 1.831}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -670,16 +718,19 @@ MonoBehaviour:
     staticProxy: {fileID: 1760160701}
     dynamicProxy: {fileID: 561757480}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   spine:
     boneDirection: 5
     staticProxy: {fileID: 561757480}
     dynamicProxy: {fileID: 18676357}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   head:
     boneDirection: 5
     staticProxy: {fileID: 18676357}
     dynamicProxy: {fileID: 7627779206296959882}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   hipRotation:
     boneDirection: 1
     mappingPlaneNormal: 5
@@ -702,61 +753,73 @@ MonoBehaviour:
     staticProxy: {fileID: 7627779206296959881}
     dynamicProxy: {fileID: 7627779206296959880}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rLowerArm:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959880}
     dynamicProxy: {fileID: 7627779206296959879}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rHand:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959879}
     dynamicProxy: {fileID: 7627779206296959878}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lUpperArm:
     boneDirection: 4
     staticProxy: {fileID: 7627779206296959877}
     dynamicProxy: {fileID: 7627779206296959876}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lLowerArm:
     boneDirection: 4
     staticProxy: {fileID: 7627779206296959876}
     dynamicProxy: {fileID: 7627779206296959875}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lHand:
     boneDirection: 4
     staticProxy: {fileID: 7627779206296959875}
     dynamicProxy: {fileID: 7627779206296959874}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rUpperLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959873}
     dynamicProxy: {fileID: 7627779206296959872}
     resetRotation: 1
+    resetTo: {x: 0, y: 180, z: 0}
   rLowerLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959872}
     dynamicProxy: {fileID: 7627779206296959871}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rFoot:
     boneDirection: 0
     staticProxy: {fileID: 7627779206296959871}
     dynamicProxy: {fileID: 7627779206296959870}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lUpperLeg:
     boneDirection: 4
     staticProxy: {fileID: 7627779206296959869}
     dynamicProxy: {fileID: 7627779206296959868}
-    resetRotation: 0
+    resetRotation: 1
+    resetTo: {x: 0, y: 180, z: 180}
   lLowerLeg:
     boneDirection: 4
     staticProxy: {fileID: 7627779206296959868}
     dynamicProxy: {fileID: 7627779206296959867}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lFoot:
     boneDirection: 1
     staticProxy: {fileID: 7627779206296959867}
     dynamicProxy: {fileID: 7627779206296959866}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
 --- !u!1 &1323357164
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,16 +945,19 @@ MonoBehaviour:
     staticProxy: {fileID: 1760160701}
     dynamicProxy: {fileID: 561757480}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   spine:
     boneDirection: 5
     staticProxy: {fileID: 561757480}
     dynamicProxy: {fileID: 18676357}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   head:
     boneDirection: 5
     staticProxy: {fileID: 18676357}
     dynamicProxy: {fileID: 7627779206296959882}
     resetRotation: 0
+    resetTo: {x: 0, y: 0, z: 0}
   hipRotation:
     boneDirection: 1
     mappingPlaneNormal: 5
@@ -900,7 +966,7 @@ MonoBehaviour:
     proxy2: {fileID: 7627779206296959869}
   shoulderRotation:
     boneDirection: 1
-    mappingPlaneNormal: 5
+    mappingPlaneNormal: 4
     staticProxy: {fileID: 561757480}
     proxy1: {fileID: 7627779206296959881}
     proxy2: {fileID: 7627779206296959877}
@@ -914,61 +980,73 @@ MonoBehaviour:
     staticProxy: {fileID: 7627779206296959881}
     dynamicProxy: {fileID: 7627779206296959880}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rLowerArm:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959880}
     dynamicProxy: {fileID: 7627779206296959879}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rHand:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959879}
     dynamicProxy: {fileID: 7627779206296959878}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lUpperArm:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959877}
     dynamicProxy: {fileID: 7627779206296959876}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lLowerArm:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959876}
     dynamicProxy: {fileID: 7627779206296959875}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lHand:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959875}
     dynamicProxy: {fileID: 7627779206296959874}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rUpperLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959873}
     dynamicProxy: {fileID: 7627779206296959872}
     resetRotation: 1
+    resetTo: {x: 0, y: 180, z: 0}
   rLowerLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959872}
     dynamicProxy: {fileID: 7627779206296959871}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   rFoot:
     boneDirection: 0
     staticProxy: {fileID: 7627779206296959871}
     dynamicProxy: {fileID: 7627779206296959870}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lUpperLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959869}
     dynamicProxy: {fileID: 7627779206296959868}
     resetRotation: 1
+    resetTo: {x: 0, y: 180, z: 0}
   lLowerLeg:
     boneDirection: 5
     staticProxy: {fileID: 7627779206296959868}
     dynamicProxy: {fileID: 7627779206296959867}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
   lFoot:
     boneDirection: 0
     staticProxy: {fileID: 7627779206296959867}
     dynamicProxy: {fileID: 7627779206296959866}
     resetRotation: 1
+    resetTo: {x: 0, y: 0, z: 0}
 --- !u!114 &1630329407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,6 +1080,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96228830984605789, guid: a0414f3e2f01ee04c9195d4a66666a94, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 947834351442949122, guid: a0414f3e2f01ee04c9195d4a66666a94, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -1052,7 +1134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2223615840494935023, guid: a0414f3e2f01ee04c9195d4a66666a94, type: 3}
       propertyPath: showDebugSphere
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223615840494935023, guid: a0414f3e2f01ee04c9195d4a66666a94, type: 3}
+      propertyPath: hideDebugSpheres
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2297577564118846741, guid: a0414f3e2f01ee04c9195d4a66666a94, type: 3}
       propertyPath: m_RootOrder

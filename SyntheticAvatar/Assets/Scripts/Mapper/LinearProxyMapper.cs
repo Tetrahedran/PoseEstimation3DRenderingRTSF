@@ -12,12 +12,14 @@ public class LinearProxyMapper : ProxyMapper
         public Transform staticProxy;
         public Transform dynamicProxy;
         public bool resetRotation;
+        public Vector3 resetTo;
     }
 
     private Transform staticProxy;
     private Transform dynamicProxy;
     private BoneForward boneDir;
     private bool resetRotation;
+    private Quaternion resetTo;
 
     public LinearProxyMapper(Transform bone, LinearProxyMapperAttributes attr) : 
         base(bone)
@@ -26,6 +28,7 @@ public class LinearProxyMapper : ProxyMapper
         this.dynamicProxy = attr.dynamicProxy;
         this.boneDir = attr.boneDirection;
         this.resetRotation = attr.resetRotation;
+        this.resetTo = Quaternion.Euler(attr.resetTo);
     }
 
     // Update is called once per frame
@@ -33,7 +36,7 @@ public class LinearProxyMapper : ProxyMapper
     {
         if (resetRotation)
         {
-            this.joint.localRotation = Quaternion.identity;
+            this.joint.localRotation = this.resetTo;
         }
         Vector3 dir = dynamicProxy.position - staticProxy.position;
         if (dir.sqrMagnitude != 0)
