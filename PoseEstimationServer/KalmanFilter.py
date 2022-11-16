@@ -89,6 +89,8 @@ class KalmanFilter:
         :param z:
         :return:
         """
+        # construct terms for position in form of pos = pos + vel*dt + 1/2*acc*dt²
+        # construct terms for velocity in form of vel = vel + acc*dt
         dt = time.time() - self.start
         halfdtsq = .5 * dt * dt
         # x += v(x) * dt

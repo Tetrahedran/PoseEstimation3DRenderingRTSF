@@ -10,6 +10,7 @@ import copy
 import cv2
 import warnings
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor
 
 from PoseEstimationModel import PoseEstimationModelName, PoseEstimationModel
 from DetectionModel import DetectionModelName, DetectionModel
@@ -49,6 +50,10 @@ class WebCam3DPoseEstimation:
         self.pose_det_model = PoseEstimationModel.get(base, pe_name, self.device)
 
         self.pose_lift_model = PoseLifterModel.get(base, pl_name, self.device)
+
+        self.last_pose_det_results = []
+
+        self.executor = ThreadPoolExecutor()
 
         if not isinstance(self.pose_det_model, TopDown):
             raise Exception('Only "TopDown" model is supported for the 1st stage (2D pose detection)')
@@ -135,10 +140,19 @@ class WebCam3DPoseEstimation:
             pose_lift_dataset_info = DatasetInfo(pose_lift_dataset_info)
 
         results = {}
+
+        for res in pose_det_results_list:
+            # self.last_pose_det_results.append(res)
+            self.last_pose_det_results.insert(0, res)
+
+        while len(self.last_pose_det_results) > data_cfg.seq_len:
+            # self.last_pose_det_results.pop(0)
+            self.last_pose_det_results.pop(-1)
+
         for i, pose_det_results in enumerate(mmcv.track_iter_progress(pose_det_results)):
             pose_results_2d = extract_pose_sequence(
-                pose_det_results_list,
-                frame_idx=i,
+                self.last_pose_det_results,
+                frame_idx=0,  # len(self.last_pose_det_results) - 1,
                 causal=data_cfg.causal,
                 seq_len=data_cfg.seq_len,
                 step=data_cfg.seq_frame_interval)
@@ -159,7 +173,7 @@ class WebCam3DPoseEstimation:
                 # exchange y,z-axis, and then reverse the direction of x,z-axis
                 # scale down
                 # x = 0, y = 1, z = 2
-                #keypoints_3d = keypoints_3d[..., [0, 2, 1]]
+                keypoints_3d = keypoints_3d[..., [0, 1, 2]]
                 keypoints_3d[..., 0] = -keypoints_3d[..., 0]
                 keypoints_3d[..., 2] = -keypoints_3d[..., 2]
                 # reverse y-axis
@@ -213,23 +227,48 @@ class WebCam3DPoseEstimation:
                 "LeftUpperArm": kp_3d[11].astype("float").tolist(),
                 "LeftLowerArm": kp_3d[12].astype("float").tolist(),
                 "LeftHand": kp_3d[13].astype("float").tolist(),
-                "LeftFingers": leftFingers,
+                "LeftFingers": leftFingers.astype("float").tolist(),
                 "RightUpperArm": kp_3d[14].astype("float").tolist(),
                 "RightLowerArm": kp_3d[15].astype("float").tolist(),
                 "RightHand": kp_3d[16].astype("float").tolist(),
-                "RightFingers": rightFingers
+                "RightFingers": rightFingers.astype("float").tolist()
             }
 
             if self.use_smoothing:
+                all_results = []
+                all_inputs = []
+                for j, key in enumerate(kp_dict):
+                    in_data = (key, kp_dict[key], self.Smoother[j])
+                    all_inputs.append(in_data)
+
+                p_results = self.executor.map(self.perform_smoothing, all_inputs)
+
+                for result in p_results:
+                    all_results.append(result)
+
+                for key, smoothed in all_results:
+                    kp_dict[key] = smoothed
+                """
                 for j, key in enumerate(kp_dict):
                     x, p = self.Smoother[j].filter(kp_dict[key])
                     x = x.flatten()
                     x = [x[0], x[1], x[2]]
                     kp_dict[key] = x
+                """
 
             results[i] = kp_dict
 
         return results
+
+    def perform_smoothing(self, k_r_s_input):
+        key = k_r_s_input[0]
+        raw = k_r_s_input[1]
+        smoother = k_r_s_input[2]
+
+        x, p = smoother.filter(raw)
+        x = x.flatten()
+        x = [x[0], x[1], x[2]]
+        return key, x
 
 
 if __name__ == '__main__':
