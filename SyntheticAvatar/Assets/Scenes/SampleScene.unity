@@ -262,7 +262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412954185}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d7d2586a5116e458cfe057d720a9d6, type: 3}
   m_Name: 
@@ -551,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3388840107371486329, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
@@ -965,7 +965,7 @@ MonoBehaviour:
     proxy1: {fileID: 7627779206296959873}
     proxy2: {fileID: 7627779206296959869}
   shoulderRotation:
-    boneDirection: 1
+    boneDirection: 0
     mappingPlaneNormal: 4
     staticProxy: {fileID: 561757480}
     proxy1: {fileID: 7627779206296959881}

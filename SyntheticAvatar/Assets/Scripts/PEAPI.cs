@@ -83,7 +83,7 @@ public class PEAPI : MonoBehaviour
                                 mover.move(bone, vec);
                             }
                         }
-                        AfterDataReceived(this, null);
+                        AfterDataReceived?.Invoke(this, null);
                     }).Catch(err =>
                     {
                         Debug.LogWarning($"Couldn't connect to {url} because of error: {err.Message}");
