@@ -27,6 +27,7 @@ class WebCam3DPoseEstimation:
                  bbox_thr=0.9, kpt_thr=0.3, use_oks_tracking=False, tracking_thr=0.3,
                  online=True, use_smoothing=False):
 
+        self.base = base
         self.device = device.lower()
         self.rebase_keypoint_height = rebase_keypoint_height
         self.norm_pose_2d = norm_pose_2d
@@ -269,6 +270,9 @@ class WebCam3DPoseEstimation:
         x = x.flatten()
         x = [x[0], x[1], x[2]]
         return key, x
+
+    def switch_pe_network(self, pe_network: PoseEstimationModelName):
+        self.pose_det_model = PoseEstimationModel.get(self.base, pe_network, self.device)
 
 
 if __name__ == '__main__':

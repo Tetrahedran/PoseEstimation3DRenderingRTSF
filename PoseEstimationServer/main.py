@@ -13,16 +13,15 @@ from DetectionModel import DetectionModelName
 from PoseLifterModel import PoseLifterModelName
 import cv2
 
+tdEstimator = None
+
 
 def perform_pose_estimation():
     """
     Loop for performing continuous pose estimation
     """
     base = "checkpoints"
-
-    tdEstimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
-                                         PoseEstimationModelName.vipnas_res50,
-                                         PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
+    global tdEstimator
 
     vid = cv2.VideoCapture(0)
     fps = []
@@ -112,8 +111,24 @@ def get_hello_world():
     return json.dumps(get_pose())
 
 
+@api.get("/available")
+def get_available_networks():
+    return json.jsonify(list(range(0, len(networks))))
+
+
+@api.post("/switch/<networkID>")
+def switch_network(networkID):
+    network = networks[int(networkID)]
+    tdEstimator.switch_pe_network(network)
+    return json.jsonify(200)
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    networks = [PoseEstimationModelName.vipnas_res50, PoseEstimationModelName.vipnas_mbv3, PoseEstimationModelName.mobilenetv2, PoseEstimationModelName.mspn, PoseEstimationModelName.litehr]
+    tdEstimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
+                                         PoseEstimationModelName.vipnas_res50,
+                                         PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
     pose_thread = create_pose_detection_thread()
     pose_thread.start()
     api.run()

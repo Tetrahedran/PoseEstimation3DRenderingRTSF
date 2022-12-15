@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cafab635af7c92429ae078cac72a806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebugSphere: 0
+  hideDebugSpheres: 0
 --- !u!1 &7627779206313411069
 GameObject:
   m_ObjectHideFlags: 0
