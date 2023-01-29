@@ -41,6 +41,10 @@ def get_unity_img_data():
     setImg(data)
     return json.jsonify(200)
 
+@api.get("/data")
+def get_binary_data():
+	data = getImg()
+	return data
 
 if __name__ == "__main__":
     rtsf = create_rtsf_thread()
