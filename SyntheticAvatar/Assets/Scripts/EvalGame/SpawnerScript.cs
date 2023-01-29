@@ -11,13 +11,11 @@ public class SpawnerScript : MonoBehaviour
     public Transform shoulderR;
     public float maxDist;
 
-    private GameCycleScript GameCycle;
     private Vector3 lastRndPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameCycle = GetComponent<GameCycleScript>();
         lastRndPos = Vector3.zero;
     }
 
@@ -27,11 +25,12 @@ public class SpawnerScript : MonoBehaviour
         
     }
 
-    public void SpawnOne()
+    public Vector3 SpawnOne()
     {
         GameObject obj = Instantiate(prefab);
-        obj.GetComponent<TimeCollector>().GameCycle = this.GameCycle;
-        obj.transform.position = getRndPosition();
+        Vector3 pos = getRndPosition();
+        obj.transform.position = pos;
+        return pos;
     }
 
     private Vector3 getRndPosition()
@@ -47,13 +46,17 @@ public class SpawnerScript : MonoBehaviour
         }
 
         Vector3 outputVector;
+        Vector2 lastrndpos, outvec;
+
         do
         {
             float xFactor = Random.Range(-1.0f, 1);
             float yFactor = Random.Range(-1.0f, 1);
 
             outputVector = new Vector3(xFactor * maxDist, yFactor * maxDist, 0) + basis;
-        } while ((lastRndPos - outputVector).magnitude < (maxDist * .25f));
+            lastrndpos = lastRndPos;
+            outvec = outputVector;
+        } while ((lastrndpos - outvec).magnitude < (maxDist * .45f));
         lastRndPos = outputVector;
         return outputVector;
     }

@@ -16,8 +16,15 @@ public class GameCycleScript : MonoBehaviour
     public TextMeshProUGUI LeftText;
     public GameObject panel;
     public int numberOfObjects;
+    [Range(1,25)]
+    public int breakEvery;
 
-    public event EventHandler startNewMeassurement;
+    [SerializeField]
+    private HandController leftHand;
+    [SerializeField]
+    private HandController rightHand;
+
+    private float idealDistance;
 
     private bool listenForKeyInput;
     private SpawnerScript spawner;
@@ -31,6 +38,7 @@ public class GameCycleScript : MonoBehaviour
         public int network;
         public float dT;
         public float dS;
+        public float idealdS;
     }
 
     // Start is called before the first frame update
@@ -61,18 +69,21 @@ public class GameCycleScript : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.Return))
             {
-                PlayGame();
+                PlayGame(false);
             }
         }
     }
 
     public void Hit(float delta, float dist, GameObject calling)
     {
+        rightHand.ResetMeassurement();
+        leftHand.ResetMeassurement();
         int networkId = networks[networksCount];
         DistTime dsdt = new DistTime();
         dsdt.dT = delta;
         dsdt.dS = dist;
         dsdt.network = networkId;
+        dsdt.idealdS = idealDistance;
 
         Debug.Log("Time: " + delta);
         Debug.Log("Distance: " + dist);
@@ -90,10 +101,12 @@ public class GameCycleScript : MonoBehaviour
         listenForKeyInput = true;
     }
 
-    private void PlayGame()
+    private void PlayGame(bool pause = true)
     {
         instanceCount = 0;
         selectNetwork();
+        if(pause) Debug.Break();
+        panel.SetActive(true);
         StartCoroutine(countDown(5));
     }
 
@@ -128,26 +141,30 @@ public class GameCycleScript : MonoBehaviour
                 {
                     Directory.CreateDirectory(Application.dataPath + "/Meassurements/");
                 }
-                String path = Application.dataPath + "/Meassurements/" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + ".csv";
+                Hash128 hash = new Hash128();
+                hash.Append(DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+                string fileName = hash.ToString();
+                String path = Application.dataPath + "/Meassurements/" + fileName + ".csv";
                 using (StreamWriter writer = File.AppendText(path))
                 {
-                    writer.WriteLine("Network;dT;dS");
+                    writer.WriteLine("Network;dT;dS;Ideal dS");
 
                     foreach (DistTime delta in deltas)
                     {
-                        writer.WriteLine(delta.network + ";" + delta.dT + ";" + delta.dS);
+                        writer.WriteLine(delta.network + ";" + delta.dT + ";" + delta.dS + ";" + delta.idealdS);
                     }
 
                     writer.Flush();
                 }
                 networksCount = 0;
+                Debug.Log($"Saved to {fileName}.csv");
                 Debug.Log("GameDone");
                 deltas = new List<DistTime>();
                 displayStartMessage();
             }
             else
             {
-                PlayGame();
+                PlayGame(networksCount % breakEvery == 0);
             }
         }
     }
@@ -168,8 +185,17 @@ public class GameCycleScript : MonoBehaviour
     private IEnumerator SpawnOne()
     {
         yield return new WaitForSeconds(.5f);
-        spawner.SpawnOne();
+        Vector2 spawnPos = spawner.SpawnOne();
         RightText.text = instanceCount + "/" + numberOfObjects;
-        startNewMeassurement?.Invoke(this, null);
+        rightHand.StartMeassurement();
+        leftHand.StartMeassurement();
+        Vector2 rHandPos = rightHand.transform.position;
+        Vector2 lHandPos = leftHand.transform.position;
+
+        float rHandDist = (spawnPos - rHandPos).magnitude;
+        float lHandDist = (spawnPos - lHandPos).magnitude;
+
+        idealDistance = rHandDist < lHandDist ? rHandDist : lHandDist;
+        Debug.Log($"Ideal Distance is {idealDistance}");
     }
 }

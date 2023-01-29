@@ -15,7 +15,6 @@ public class DistanceCollector : MonoBehaviour
     {
         meassure = false;
         lastPos = transform.position;
-        gameCycle.startNewMeassurement += handleNewMeassurement;
     }
 
     // Update is called once per frame
