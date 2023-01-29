@@ -274,6 +274,9 @@ class WebCam3DPoseEstimation:
     def switch_pe_network(self, pe_network: PoseEstimationModelName):
         self.pose_det_model = PoseEstimationModel.get(self.base, pe_network, self.device)
 
+    def switch_pl_network(self, pl_network: PoseLifterModelName):
+        self.pose_lift_model = PoseLifterModel.get(self.base, pl_network, self.device)
+
 
 if __name__ == '__main__':
     base = "checkpoints"

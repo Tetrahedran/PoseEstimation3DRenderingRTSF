@@ -119,13 +119,26 @@ def get_available_networks():
 @api.post("/switch/<networkID>")
 def switch_network(networkID):
     network = networks[int(networkID)]
-    tdEstimator.switch_pe_network(network)
+    pl_nw = network[1]
+    pe_nw = network[0]
+    tdEstimator.switch_pl_network(pl_nw)
+    tdEstimator.switch_pe_network(pe_nw)
     return json.jsonify(200)
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    networks = [PoseEstimationModelName.vipnas_res50, PoseEstimationModelName.vipnas_mbv3, PoseEstimationModelName.mobilenetv2, PoseEstimationModelName.mspn, PoseEstimationModelName.litehr]
+    networks = [(PoseEstimationModelName.vipnas_res50, PoseLifterModelName.pose_lift_video_lift_27Frame),
+                (PoseEstimationModelName.vipnas_mbv3, PoseLifterModelName.pose_lift_video_lift_27Frame),
+                (PoseEstimationModelName.mobilenetv2, PoseLifterModelName.pose_lift_video_lift_27Frame),
+                (PoseEstimationModelName.mspn, PoseLifterModelName.pose_lift_video_lift_27Frame),
+                (PoseEstimationModelName.litehr, PoseLifterModelName.pose_lift_video_lift_27Frame),
+                (PoseEstimationModelName.vipnas_res50, PoseLifterModelName.pose_lift_video_lift_243Frame),
+                (PoseEstimationModelName.vipnas_mbv3, PoseLifterModelName.pose_lift_video_lift_243Frame),
+                (PoseEstimationModelName.mobilenetv2, PoseLifterModelName.pose_lift_video_lift_243Frame),
+                (PoseEstimationModelName.mspn, PoseLifterModelName.pose_lift_video_lift_243Frame),
+                (PoseEstimationModelName.litehr, PoseLifterModelName.pose_lift_video_lift_243Frame)
+                ]
     tdEstimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
                                          PoseEstimationModelName.vipnas_res50,
                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
