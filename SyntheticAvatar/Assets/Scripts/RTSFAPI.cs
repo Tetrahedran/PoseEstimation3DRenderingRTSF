@@ -7,7 +7,6 @@ using UnityEditor;
 using Proyecto26;
 
 [RequireComponent(typeof(FrameExporter))]
-[RequireComponent(typeof(FullProxyMover))]
 public class RTSFAPI : MonoBehaviour
 {
     public string ip = "192.168.5.1";
@@ -46,21 +45,6 @@ public class RTSFAPI : MonoBehaviour
                     Debug.LogWarning($"Couldn't connect to {url} because of error: {err.Message}");
                 });
                 yield return new WaitForEndOfFrame();
-
-                /*using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
-                {
-                    www.disposeUploadHandlerOnDispose = true;
-                    www.disposeDownloadHandlerOnDispose = true;
-                    UploadHandler handler = new UploadHandlerRaw(img);
-                    www.uploadHandler = handler;
-                    yield return www.SendWebRequest();
-                    if (www.result != UnityWebRequest.Result.Success)
-                    {
-                        Debug.LogWarning($"Couldn't connect to {url} because of error: {www.error}");
-                    }
-                    www.Dispose();
-                    yield return new WaitForEndOfFrame();
-                }*/
             }
         }
     }

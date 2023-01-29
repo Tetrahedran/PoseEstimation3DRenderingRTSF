@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class AbstractVectorFollowProxy : ProxyMapper
 {
-    private BoneForward mappingPlaneNormal;
-    private BoneForward boneDir;
+    private BoneAxis mappingPlaneNormal;
+    private BoneAxis boneDir;
 
-    public AbstractVectorFollowProxy(Transform bone, BoneForward boneDir, BoneForward mappingPlaneNormal): base(bone)
+    public AbstractVectorFollowProxy(Transform bone, BoneAxis boneDir, BoneAxis mappingPlaneNormal): base(bone)
     {
         this.mappingPlaneNormal = mappingPlaneNormal;
         this.boneDir = boneDir;

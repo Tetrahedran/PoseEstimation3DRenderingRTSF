@@ -8,8 +8,8 @@ public class VectorFollowMapper : AbstractVectorFollowProxy
     [Serializable]
     public struct VectorFollowMapperAttributes
     {
-        public BoneForward boneDirection;
-        public BoneForward mappingPlaneNormal;
+        public BoneAxis boneDirection;
+        public BoneAxis mappingPlaneNormal;
         public Transform staticProxy;
         public Transform dynamicProxy;
     }

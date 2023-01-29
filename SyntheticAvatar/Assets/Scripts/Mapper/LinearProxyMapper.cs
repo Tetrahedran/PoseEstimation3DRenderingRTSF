@@ -8,7 +8,7 @@ public class LinearProxyMapper : ProxyMapper
     [Serializable]
     public struct LinearProxyMapperAttributes
     {
-        public BoneForward boneDirection;
+        public BoneAxis boneDirection;
         public Transform staticProxy;
         public Transform dynamicProxy;
         public bool resetRotation;
@@ -17,7 +17,7 @@ public class LinearProxyMapper : ProxyMapper
 
     private Transform staticProxy;
     private Transform dynamicProxy;
-    private BoneForward boneDir;
+    private BoneAxis boneDir;
     private bool resetRotation;
     private Quaternion resetTo;
 

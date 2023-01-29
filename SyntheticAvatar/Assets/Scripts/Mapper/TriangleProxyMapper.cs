@@ -8,8 +8,8 @@ public class TriangleProxyMapper : AbstractVectorFollowProxy
     [Serializable]
     public struct TriangleProxyMapperAttributes
     {
-        public BoneForward boneDirection;
-        public BoneForward mappingPlaneNormal;
+        public BoneAxis boneDirection;
+        public BoneAxis mappingPlaneNormal;
         public Transform staticProxy;
         public Transform proxy1, proxy2;
     }

@@ -6,7 +6,6 @@ using System;
 using UnityEditor;
 using Proyecto26;
 
-[RequireComponent(typeof(FrameExporter))]
 [RequireComponent(typeof(FullProxyMover))]
 public class PEAPI : MonoBehaviour
 {
@@ -42,32 +41,6 @@ public class PEAPI : MonoBehaviour
             if (!EditorApplication.isPaused)
             {
                 string url = $"http://{ip}:{peServerPort}/estimation";
-                /*using (UnityWebRequest www = UnityWebRequest.Get(url))
-                {
-                    www.disposeUploadHandlerOnDispose = true;
-                    www.disposeDownloadHandlerOnDispose = true;
-                    yield return www.SendWebRequest();
-                    if (www.result != UnityWebRequest.Result.Success)
-                    {
-                        Debug.LogWarning($"Couldn't connect to {url} because of error: {www.error}");
-                    }
-                    else
-                    {
-                        JObject obj = JObject.Parse(www.downloadHandler.text);
-                        ProxyBone[] values = Enum.GetValues(typeof(ProxyBone)) as ProxyBone[];
-                        Array.Sort(values);
-                        foreach (ProxyBone bone in values)
-                        {
-                            if (obj.ContainsKey(bone.ToString()))
-                            {
-                                float[] pos = obj.Value<JArray>(bone.ToString()).ToObject<float[]>();
-                                Vector3 vec = new Vector3(pos[0], pos[1], pos[2]);
-                                mover.move(bone, vec);
-                            }
-                        }
-                        AfterDataReceived(this, null);
-                    }
-                }*/
                 RestClient.Get(url)
                     .Then(response =>
                     {

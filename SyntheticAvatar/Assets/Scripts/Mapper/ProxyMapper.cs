@@ -15,21 +15,21 @@ public abstract class ProxyMapper
 
     public abstract void Update();
 
-    protected Vector3 getBoneDir(BoneForward forward)
+    protected Vector3 getBoneDir(BoneAxis forward)
     {
         switch (forward)
         {
-            case BoneForward.UP:
+            case BoneAxis.UP:
                 return joint.up;
-            case BoneForward.DOWN:
+            case BoneAxis.DOWN:
                 return joint.up * -1;
-            case BoneForward.FORWARD:
+            case BoneAxis.FORWARD:
                 return joint.forward;
-            case BoneForward.BACKWARD:
+            case BoneAxis.BACKWARD:
                 return joint.forward * -1;
-            case BoneForward.RIGHT:
+            case BoneAxis.RIGHT:
                 return joint.right;
-            case BoneForward.LEFT:
+            case BoneAxis.LEFT:
                 return joint.right * -1;
             default:
                 throw new System.Exception();
@@ -37,29 +37,29 @@ public abstract class ProxyMapper
     }
 }
 
-public enum BoneForward
+public enum BoneAxis
 {
     UP, DOWN, FORWARD, BACKWARD, RIGHT, LEFT
 }
 
 public static class BoneForwardExtension
 {
-    public static BoneForward negate(this BoneForward val)
+    public static BoneAxis negate(this BoneAxis val)
     {
         switch (val)
         {
-            case BoneForward.UP:
-                return BoneForward.DOWN;
-            case BoneForward.DOWN:
-                return BoneForward.UP;
-            case BoneForward.FORWARD:
-                return BoneForward.BACKWARD;
-            case BoneForward.BACKWARD:
-                return BoneForward.FORWARD;
-            case BoneForward.RIGHT:
-                return BoneForward.LEFT;
-            case BoneForward.LEFT:
-                return BoneForward.RIGHT;
+            case BoneAxis.UP:
+                return BoneAxis.DOWN;
+            case BoneAxis.DOWN:
+                return BoneAxis.UP;
+            case BoneAxis.FORWARD:
+                return BoneAxis.BACKWARD;
+            case BoneAxis.BACKWARD:
+                return BoneAxis.FORWARD;
+            case BoneAxis.RIGHT:
+                return BoneAxis.LEFT;
+            case BoneAxis.LEFT:
+                return BoneAxis.RIGHT;
             default:
                 throw new System.Exception("Unexpected enum value");
         }
