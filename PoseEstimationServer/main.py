@@ -5,15 +5,15 @@
 
 from flask import Flask, json
 from threading import Thread, Lock
-from WebCamTestViPNAS import WebCamPoseInference
+from Pose_Estimation_2D import WebCamPoseInference
 from time import time
 from PoseEstimationModel import PoseEstimationModelName
-from PE_3D_Test import WebCam3DPoseEstimation
+from Pose_Estimation_3D import WebCam3DPoseEstimation
 from DetectionModel import DetectionModelName
 from PoseLifterModel import PoseLifterModelName
 import cv2
 
-tdEstimator = None
+pe_estimator = None
 
 
 def perform_pose_estimation():
@@ -21,14 +21,14 @@ def perform_pose_estimation():
     Loop for performing continuous pose estimation
     """
     base = "checkpoints"
-    global tdEstimator
+    global pe_estimator
 
     vid = cv2.VideoCapture(0)
     fps = []
     while True:
         start = time()
-        ret, frame = vid.read()
-        estimate = tdEstimator.infer(frame, bypass_det=True)
+        _, frame = vid.read()
+        estimate = pe_estimator.infer(frame, bypass_det=True)
         end = time()
         cv2.imshow("frame", frame)
         if cv2.waitKey(1) & 0xff == ord("q"):
@@ -43,7 +43,7 @@ def perform_pose_estimation():
             fps = []
 
 
-def create_pose_detection_thread():
+def create_pose_estimation_thread():
     """
     Creates a separate thread to execute continuous pose estimation
 
@@ -121,8 +121,8 @@ def switch_network(networkID):
     network = networks[int(networkID)]
     pl_nw = network[1]
     pe_nw = network[0]
-    tdEstimator.switch_pl_network(pl_nw)
-    tdEstimator.switch_pe_network(pe_nw)
+    pe_estimator.switch_pl_network(pl_nw)
+    pe_estimator.switch_pe_network(pe_nw)
     return json.jsonify(200)
 
 
@@ -139,11 +139,11 @@ if __name__ == '__main__':
                 (PoseEstimationModelName.mspn, PoseLifterModelName.pose_lift_video_lift_243Frame),
                 (PoseEstimationModelName.litehr, PoseLifterModelName.pose_lift_video_lift_243Frame)
                 ]
-    tdEstimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
-                                         PoseEstimationModelName.vipnas_res50,
-                                         PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
-    pose_thread = create_pose_detection_thread()
-    pose_thread.start()
+    pe_estimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
+                                          PoseEstimationModelName.vipnas_res50,
+                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=False)
+    #pose_thread = create_pose_estimation_thread()
+    #pose_thread.start()
     api.run()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

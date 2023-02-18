@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Camera))]
 public class CameraFlip : MonoBehaviour
 {
-    Camera camera;
+    new Camera camera;
 
     private void Start()
     {

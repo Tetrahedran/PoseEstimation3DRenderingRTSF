@@ -8,7 +8,7 @@ public class LinearProxyMapper : ProxyMapper
     [Serializable]
     public struct LinearProxyMapperAttributes
     {
-        public BoneAxis boneDirection;
+        public BoneAxis primaryAxis;
         public Transform staticProxy;
         public Transform dynamicProxy;
         public bool resetRotation;
@@ -17,7 +17,7 @@ public class LinearProxyMapper : ProxyMapper
 
     private Transform staticProxy;
     private Transform dynamicProxy;
-    private BoneAxis boneDir;
+    private BoneAxis primary;
     private bool resetRotation;
     private Quaternion resetTo;
 
@@ -26,7 +26,7 @@ public class LinearProxyMapper : ProxyMapper
     {
         this.staticProxy = attr.staticProxy;
         this.dynamicProxy = attr.dynamicProxy;
-        this.boneDir = attr.boneDirection;
+        this.primary = attr.primaryAxis;
         this.resetRotation = attr.resetRotation;
         this.resetTo = Quaternion.Euler(attr.resetTo);
     }
@@ -38,14 +38,16 @@ public class LinearProxyMapper : ProxyMapper
         {
             this.joint.localRotation = this.resetTo;
         }
+
         Vector3 dir = dynamicProxy.position - staticProxy.position;
+
         if (dir.sqrMagnitude != 0)
         {
-            Vector3 boneDir = getBoneDir(this.boneDir);
+            Vector3 primaryAxis = getBoneDir(this.primary);
             Quaternion boneRot = joint.rotation;
-            Debug.DrawRay(joint.position, boneDir * 5, Color.red);
+            Debug.DrawRay(joint.position, primaryAxis * 5, Color.red);
             Debug.DrawRay(joint.position, dir, Color.black);
-            Quaternion rot = Quaternion.FromToRotation(boneDir, dir);
+            Quaternion rot = Quaternion.FromToRotation(primaryAxis, dir);
             Quaternion localRot = rot * boneRot;
             joint.localRotation = Quaternion.Inverse(joint.parent.rotation) * localRot;
         }
