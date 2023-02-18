@@ -141,9 +141,9 @@ if __name__ == '__main__':
                 ]
     pe_estimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
                                           PoseEstimationModelName.vipnas_res50,
-                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=False)
-    #pose_thread = create_pose_estimation_thread()
-    #pose_thread.start()
+                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
+    pose_thread = create_pose_estimation_thread()
+    pose_thread.start()
     api.run()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

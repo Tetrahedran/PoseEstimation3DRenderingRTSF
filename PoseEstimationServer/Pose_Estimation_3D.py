@@ -114,10 +114,6 @@ class WebCam3DPoseEstimation:
             use_oks=False,
             tracking_thr=0.3)
 
-        pose_det_results_list.append(copy.deepcopy(pose_det_results))
-
-        pose_lift_dataset = self.pose_lift_model.cfg.data['test']['type']
-
         # convert keypoint definition
         for res in pose_det_results:
             keypoints = res['keypoints']
