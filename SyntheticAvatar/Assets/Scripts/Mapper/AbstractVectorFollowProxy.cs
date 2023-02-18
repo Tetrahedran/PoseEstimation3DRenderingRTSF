@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class AbstractVectorFollowProxy : ProxyMapper
 {
-    private BoneAxis mappingPlaneNormal;
-    private BoneAxis boneDir;
+    private BoneAxis primary;
+    private BoneAxis secondary;
 
-    public AbstractVectorFollowProxy(Transform bone, BoneAxis boneDir, BoneAxis mappingPlaneNormal): base(bone)
+    public AbstractVectorFollowProxy(Transform bone, BoneAxis secondary, BoneAxis mappingPlaneNormal): base(bone)
     {
-        this.mappingPlaneNormal = mappingPlaneNormal;
-        this.boneDir = boneDir;
+        this.primary = mappingPlaneNormal;
+        this.secondary = secondary;
     }
 
     protected abstract Vector3 getFollowVector();
@@ -18,13 +18,13 @@ public abstract class AbstractVectorFollowProxy : ProxyMapper
     public sealed override void Update()
     {
         Vector3 dir = getFollowVector();
-        Vector3 normal = getBoneDir(mappingPlaneNormal);
+        Vector3 normal = getBoneDir(primary);
         dir = Vector3.ProjectOnPlane(dir, normal);
         if (dir.sqrMagnitude != 0)
         {
-            Vector3 boneDir = getBoneDir(this.boneDir);
+            Vector3 secondaryAxis = getBoneDir(this.secondary);
             Quaternion boneRot = joint.rotation;
-            Quaternion rot = Quaternion.FromToRotation(boneDir, dir);
+            Quaternion rot = Quaternion.FromToRotation(secondaryAxis, dir);
             Quaternion localRot = rot * boneRot;
             joint.localRotation = Quaternion.Inverse(joint.parent.rotation) * localRot;
         }

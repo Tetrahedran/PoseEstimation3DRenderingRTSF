@@ -42,7 +42,7 @@ public enum BoneAxis
     UP, DOWN, FORWARD, BACKWARD, RIGHT, LEFT
 }
 
-public static class BoneForwardExtension
+public static class BoneAxisExtension
 {
     public static BoneAxis negate(this BoneAxis val)
     {
