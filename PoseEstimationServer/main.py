@@ -40,6 +40,10 @@ def perform_pose_estimation():
         if len(fps) >= 10:
             avg_fps = sum(fps) / len(fps)
             print(f"Average {avg_fps} fps")
+            """
+            with open('speed.txt', 'a') as f:
+                f.write(f"{avg_fps},")
+            """
             fps = []
 
 
@@ -123,6 +127,11 @@ def switch_network(networkID):
     pe_nw = network[0]
     pe_estimator.switch_pl_network(pl_nw)
     pe_estimator.switch_pe_network(pe_nw)
+    """
+    with open('speed.txt', 'a') as f:
+        f.write('\n')
+        f.write(f"{networkID}:")
+    """
     return json.jsonify(200)
 
 
