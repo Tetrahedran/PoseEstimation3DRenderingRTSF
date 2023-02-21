@@ -11,6 +11,10 @@ public class SpawnerScript : MonoBehaviour
     public Transform shoulderR;
     public float maxDist;
 
+    public Transform touchSphereL;
+    public Transform touchSphereR;
+    public float sphereDistance;
+
     private Vector3 lastRndPos;
 
     // Start is called before the first frame update
@@ -46,7 +50,6 @@ public class SpawnerScript : MonoBehaviour
         }
 
         Vector3 outputVector;
-        Vector2 lastrndpos, outvec;
 
         do
         {
@@ -54,10 +57,32 @@ public class SpawnerScript : MonoBehaviour
             float yFactor = Random.Range(-1.0f, 1);
 
             outputVector = new Vector3(xFactor * maxDist, yFactor * maxDist, 0) + basis;
-            lastrndpos = lastRndPos;
-            outvec = outputVector;
-        } while ((lastrndpos - outvec).magnitude < (maxDist * .45f));
+        } while (tooCloseTolastPos(lastRndPos, outputVector) || insideSphere(outputVector));
         lastRndPos = outputVector;
         return outputVector;
+    }
+
+    private bool tooCloseTolastPos(Vector2 lastPos, Vector2 newPos)
+    {
+        return (lastPos - newPos).magnitude < (maxDist * .45f);
+    }
+
+    private bool insideSphere(Vector2 newPos)
+    {
+        Vector2 leftSpherePos = touchSphereL.position;
+        Vector2 rightSpherePos = touchSphereR.position;
+
+        if((leftSpherePos - newPos).magnitude < sphereDistance)
+        {
+            return true;
+        }
+        else if ((rightSpherePos - newPos).magnitude < sphereDistance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
