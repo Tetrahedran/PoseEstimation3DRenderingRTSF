@@ -402,8 +402,8 @@ MonoBehaviour:
   RightText: {fileID: 1790172245}
   LeftText: {fileID: 1752730687}
   panel: {fileID: 1614284993}
-  numberOfObjects: 11
-  breakEvery: 5
+  numberOfObjects: 5
+  breakEvery: 25
   leftHand: {fileID: 1694212641}
   rightHand: {fileID: 485130660}
 --- !u!114 &412954194
@@ -424,7 +424,7 @@ MonoBehaviour:
   maxDist: 0.2
   touchSphereL: {fileID: 1881685671}
   touchSphereR: {fileID: 1694212642}
-  sphereDistance: 0.05
+  sphereDistance: 0.1
 --- !u!1001 &485130659
 PrefabInstance:
   m_ObjectHideFlags: 0

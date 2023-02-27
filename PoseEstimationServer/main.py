@@ -28,7 +28,7 @@ def perform_pose_estimation():
     while True:
         start = time()
         _, frame = vid.read()
-        estimate = pe_estimator.infer(frame, bypass_det=True)
+        estimate = pe_estimator.infer(frame, bypass_det=False)
         end = time()
         cv2.imshow("frame", frame)
         if cv2.waitKey(1) & 0xff == ord("q"):
@@ -41,7 +41,7 @@ def perform_pose_estimation():
             avg_fps = sum(fps) / len(fps)
             print(f"Average {avg_fps} fps")
             """
-            with open('speed.txt', 'a') as f:
+            with open('Speed_OR_on_Smooth_off.txt', 'a') as f:
                 f.write(f"{avg_fps},")
             """
             fps = []
@@ -128,7 +128,7 @@ def switch_network(networkID):
     pe_estimator.switch_pl_network(pl_nw)
     pe_estimator.switch_pe_network(pe_nw)
     """
-    with open('speed.txt', 'a') as f:
+    with open('Speed_OR_on_Smooth_off.txt', 'a') as f:
         f.write('\n')
         f.write(f"{networkID}:")
     """
@@ -148,9 +148,9 @@ if __name__ == '__main__':
                 (PoseEstimationModelName.mspn, PoseLifterModelName.pose_lift_video_lift_243Frame),
                 (PoseEstimationModelName.litehr, PoseLifterModelName.pose_lift_video_lift_243Frame)
                 ]
-    pe_estimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.ssd_mobilev2,
+    pe_estimator = WebCam3DPoseEstimation("checkpoints", DetectionModelName.yolox_tiny,
                                           PoseEstimationModelName.vipnas_res50,
-                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=True)
+                                          PoseLifterModelName.pose_lift_video_lift_27Frame, use_smoothing=False)
     pose_thread = create_pose_estimation_thread()
     pose_thread.start()
     api.run()
