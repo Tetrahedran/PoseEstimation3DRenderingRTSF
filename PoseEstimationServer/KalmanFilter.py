@@ -6,6 +6,7 @@ import numpy as np
 
 class KalmanFilter:
     """
+    Implementation according to material provided by W. Franklin
     https://de.wikipedia.org/wiki/Kalman-Filter
     https://thekalmanfilter.com/kalman-filter-python-example/
     https://thekalmanfilter.com/kalman-filter-explained-simply/

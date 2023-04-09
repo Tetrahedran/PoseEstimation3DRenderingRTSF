@@ -2,6 +2,9 @@ import numpy as np
 
 
 class DatasetConverter:
+    """
+    Code extracted from https://github.com/open-mmlab/mmpose/blob/master/demo/body3d_two_stage_video_demo.py provided by MMPose
+    """
 
     def convert_keypoint_definition(self, keypoints, pose_det_dataset,
                                     pose_lift_dataset):

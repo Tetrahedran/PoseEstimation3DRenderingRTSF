@@ -22,6 +22,9 @@ import timeit
 
 
 class WebCam3DPoseEstimation:
+    """
+    Code based on https://github.com/open-mmlab/mmpose/blob/master/demo/body3d_two_stage_video_demo.py provided by MMPose
+    """
 
     def __init__(self, base: str, det_name: DetectionModelName, pe_name: PoseEstimationModelName,
                  pl_name: PoseLifterModelName, rebase_keypoint_height=True,

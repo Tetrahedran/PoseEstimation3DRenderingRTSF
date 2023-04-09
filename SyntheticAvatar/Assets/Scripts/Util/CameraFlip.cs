@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/**
+ * Implementation according to https://answers.unity.com/questions/20337/flipmirror-camera.html
+ */
 [RequireComponent(typeof(Camera))]
 public class CameraFlip : MonoBehaviour
 {
